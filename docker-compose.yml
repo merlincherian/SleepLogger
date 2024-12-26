@@ -14,6 +14,15 @@ services:
       - "5432"
     ports:
       - "5432:5432"
+  
+  flyway:
+    image: flyway/flyway:latest
+    command: -url=jdbc:postgresql://postgres_db:5432/postgres -user=user -password=password -locations=filesystem:/flyway/sql migrate
+    volumes:
+      - .resources/db/migrations:/flyway/sql
+    depends_on:
+      - db
+
 
   sleep_api:
     build: ./sleep/.

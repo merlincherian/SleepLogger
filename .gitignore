@@ -1,0 +1,4 @@
+sleep/.gradle/
+sleep/build/
+db/*/
+!/sleep/db/migration/
