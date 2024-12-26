@@ -1,6 +1,5 @@
 import com.noom.interview.fullstack.sleep.entity.SleepLog
 import com.noom.interview.fullstack.sleep.repository.SleepLogRepository
-
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -103,7 +102,7 @@ class SleepLogRepositoryTest {
         val sql = """
             SELECT
                 CURRENT_DATE - INTERVAL '30 days' AS start_date,
-                CURRENT_DATEgit reset --soft HEAD~1 AS end_date,
+                CURRENT_DATE AS end_date,
                 AVG(EXTRACT(EPOCH FROM total_time_in_bed) / 3600) AS avg_total_time_in_bed_hours,
                 AVG(EXTRACT(HOUR FROM start_time) + EXTRACT(MINUTE FROM start_time) / 60.0) AS avg_bed_time,
                 AVG(EXTRACT(HOUR FROM end_time) + EXTRACT(MINUTE FROM end_time) / 60.0) AS avg_wake_time,

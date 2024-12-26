@@ -19,9 +19,9 @@ import com.noom.interview.fullstack.sleep.dto.SleepLogDTO
 @RequestMapping("/api/sleep-logs")
 class SleepLogController(private val sleepLogRepository: SleepLogRepository) {
 
+    
     @PostMapping
     fun createSleepLog(@RequestBody request: SleepLogRequest): ResponseEntity<Void> {
-
         val formatter = DateTimeFormatter.ofPattern("hh:mm a")
         val date = LocalDate.parse(request.sleepDate)
         var startTime = LocalTime.parse(request.startTime, formatter)
@@ -47,7 +47,6 @@ class SleepLogController(private val sleepLogRepository: SleepLogRepository) {
 
         sleepLogRepository.create(sleepLog)
         return ResponseEntity.ok().build()
-
     }
     
     @GetMapping
@@ -56,14 +55,14 @@ class SleepLogController(private val sleepLogRepository: SleepLogRepository) {
         return ResponseEntity.ok(sleepLogs)
     }
 
-    @GetMapping("users/{userId}/last-night")
-    fun getLastNightSleepLog(@PathVariable userId: Long): SleepLogDTO? {
+    @GetMapping("/last-night")
+    fun getLastNightSleepLog(@RequestParam userId: Long): SleepLogDTO? {
         val sleepLog = sleepLogRepository.findLastNightSleepLog(userId)
         return sleepLog?.let { SleepLogDTO.fromSleepLog(it) }
     }
 
-    @GetMapping("/users/{userId}/last-30-days")
-    fun getLast30DaysAverages(@PathVariable userId: Long): Map<String, Any> {
+    @GetMapping("/last-30-days")
+    fun getLast30DaysAverages(@RequestParam userId: Long): Map<String, Any> {
         return sleepLogRepository.getLast30DaysAverages(userId)
     }
 
